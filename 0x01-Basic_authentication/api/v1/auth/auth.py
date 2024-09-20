@@ -1,3 +1,6 @@
+#!usr/bin/python3
+"""Module to Handle authentication
+"""
 from flask import request
 from typing import List, TypeVar
 
