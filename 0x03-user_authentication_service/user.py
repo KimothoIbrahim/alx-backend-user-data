@@ -7,7 +7,6 @@ from sqlalchemy.orm import declarative_base
 
 
 Base = declarative_base()
-engine = create_engine('sqlite:///:memeory:', echo=True)
 
 
 class User(Base):
