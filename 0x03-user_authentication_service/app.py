@@ -1,4 +1,4 @@
-#!/usr/bin/en python3
+#!/usr/bin/env python3
 """User authenticated app
 """
 from flask import Flask, jsonify
