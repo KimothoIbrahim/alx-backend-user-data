@@ -17,6 +17,13 @@ def _hash_password(password: str) -> bytes:
         return bcrypt.hashpw(password.encode('utf-8'), salt)
 
 
+def _generate_uuid():
+    """str uid
+    """
+    import uuid
+    return str(uuid.uuid4())
+
+
 class Auth:
     """Auth class to interact with the authentication database.
     """
