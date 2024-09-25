@@ -65,7 +65,7 @@ class Auth:
         except (NoResultFound, Exception) as err:
             return
 
-    def get_user_from_session_id(self, session_id: str) -> any:
+    def get_user_from_session_id(self, session_id: str) -> str:
         """retrieve user by session id
         """
         if session_id is None:
