@@ -77,5 +77,10 @@ class Auth:
 
     def destroy_session(self, user_id: int) -> None:
         """delete a sesion
+        Args:
+            user_id (int): id of user to log out
+        Returns:
+            Nothing
         """
         self._db(user_id, session_id=None)
+        return None
