@@ -2,7 +2,8 @@
 """User authenticated app
 """
 from auth import Auth
-from flask import Flask, jsonify, request, abort, make_response
+from flask import (Flask, jsonify, request, abort,
+                   make_response, url_for, redirect)
 
 
 AUTH = Auth()
@@ -53,7 +54,24 @@ def logout():
     """logout
     """
     session_id = request.cookies.get('session_id')
-    Auth.destroy_session(session_id)
+    if session_id:
+        user = AUTH.get_user_from_session_id(session_id)
+        if user:
+            AUTH.destroy_session(user.id)
+            return redirect(url_for('index'))
+    abort(403)
+
+
+@app.route("/profile", methods=["GET"])
+def profile():
+    """ get User profile
+    """
+    session_id = request.cookies.get('session_id')
+    if session_id:
+        user = AUTH.get_user_from_session_id(session_id)
+        if user:
+            return jsonify({"email": f"{user.email}"}), 200
+    abort(403)
 
 
 if __name__ == "__main__":
