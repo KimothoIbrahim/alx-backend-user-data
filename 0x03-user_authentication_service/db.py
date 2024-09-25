@@ -61,5 +61,5 @@ class DB:
             if key not in User_for_update.__dict__.keys():
                 raise ValueError
             User_for_update.__dict__[key] = value
-            print(User_for_update.__dict__)
         self._session.commit()
+        return
