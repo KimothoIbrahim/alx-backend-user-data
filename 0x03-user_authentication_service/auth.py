@@ -63,4 +63,12 @@ class Auth:
             self._db.update_user(user.id, session_id=user.session_id)
             return user.session_id
         except (NoResultFound, Exception) as err:
+            return
+
+    def get_user_from_session_id(session_id: str) -> any:
+        """retrieve user by session id
+        """
+        try:
+            return self._db._db.find_user_by(session_id=session_id)
+        except (NoResultFound, Exception) as err:
             return None
