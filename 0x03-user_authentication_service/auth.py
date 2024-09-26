@@ -72,15 +72,29 @@ class Auth:
             return None
         try:
             return self._db.find_user_by(session_id=session_id)
-        except (NoResultFound, InvalidRequestError, Exception) as err:
+        except (NoResultFound, Exception) as err:
             return None
 
-    def destroy_session(self, user_id: int) -> None:
+    def destroy_session(self, user_id) -> None:
         """delete a sesion
         Args:
             user_id (int): id of user to log out
         Returns:
             Nothing
         """
-        self._db(user_id, session_id=None)
-        return None
+        if user_id:
+            self._db.update_user(user_id, session_id=None)
+            return None
+
+    def get_reset_password_token(self, email: str) -> str:
+        """generate password reset token
+        """
+        if email:
+            try:
+                user = self._db.find_user_by(email=email)
+                if user:
+                    user.reset_token = _generate_uuid()
+                    self._db.update_user(user.id, reset_token=user.reset_token)
+                    return user.reset_token
+            except (NoResultFound, Exception) as err:
+                raise ValueError
