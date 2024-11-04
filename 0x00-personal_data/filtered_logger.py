@@ -6,7 +6,7 @@ import logging
 def filter_datum(fields: list[str],
                  redaction: str,
                  message: str,
-                 separator: str = "; ") -> str:
+                 separator: str) -> str:
     """
     returns the log message obfuscated
     Args:
